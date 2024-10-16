@@ -10,11 +10,27 @@
 
 
 ## Usage
- - To use this template, click the green `Use this template` button and `Create new repository`.
- - After github initially creates the new repository, please wait an extra minute for the initialization scripts to finish organizing the repo.
- - To enable the automatic semantic version increments: in the repository go to `Settings` and `Collaborators and teams`. Click the green `Add people` button. Add `svc-aindscicomp` as an admin. Modify the file in `.github/workflows/tag_and_publish.yml` and remove the if statement in line 65. The semantic version will now be incremented every time a code is committed into the main branch.
- - To publish to PyPI, enable semantic versioning and uncomment the publish block in `.github/workflows/tag_and_publish.yml`. The code will now be published to PyPI every time the code is committed into the main branch.
- - The `.github/workflows/test_and_lint.yml` file will run automated tests and style checks every time a Pull Request is opened. If the checks are undesired, the `test_and_lint.yml` can be deleted. The strictness of the code coverage level, etc., can be modified by altering the configurations in the `pyproject.toml` file and the `.flake8` file.
+
+To send an alert to MS Teams. You'll need to create a channel on Teams with an alert hook url.
+
+```
+import requests
+from aind_alert_utils.teams import create_body_contents
+
+teams_channel_url = "paste your url here"
+message_text = "I am a bold font message"
+message_extra_text = "I am an optional text message. I can be None."
+
+# Create the json request
+post_request_contents = create_body_contents(
+    message=message_text, extra_text=message_extra_text
+)
+response = requests.post(teams_channel_url, json=contents)
+
+# Check the response status code or raise an error if desired
+print(response.status_code)
+# response.raise_for_status()
+```
 
 ## Installation
 To use the software, in the root directory, run
