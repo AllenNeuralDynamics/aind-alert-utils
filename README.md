@@ -13,7 +13,7 @@
 
 To send an alert to MS Teams. You'll need to create a channel on Teams with an alert hook url.
 
-```
+```python
 import requests
 from aind_alert_utils.teams import create_body_contents
 
@@ -25,7 +25,7 @@ message_extra_text = "I am an optional text message. I can be None."
 post_request_contents = create_body_contents(
     message=message_text, extra_text=message_extra_text
 )
-response = requests.post(teams_channel_url, json=contents)
+response = requests.post(teams_channel_url, json=post_request_contents)
 
 # Check the response status code or raise an error if desired
 print(response.status_code)
